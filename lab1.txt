@@ -11,4 +11,5 @@ Query OK, 0 rows affected (0.01 sec)
 | AADHAR_NO | int         | YES  |     | 0       |       |
 +-----------+-------------+------+-----+---------+-------+
 5 rows in set (0.01 sec)
-
+//RESUBMIT
+//add MYSQl> prompt correctly, and Query for desc??
