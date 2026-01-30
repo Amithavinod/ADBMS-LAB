@@ -20,3 +20,4 @@ mysql> DESC STUDENT;
 5 rows in set (0.01 sec)
 
 
+//
