@@ -1,0 +1,18 @@
+//CREATE A TEMPORARY TABLE  STUDENT1 OF STUDENT RELATION
+mysql> CREATE TEMPORARY TABLE STUDENT1 AS SELECT * FROM STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int         | NO   |     | NULL    | NULL  |
+| NAME    | varchar(15) | NO   |     | NULL    | NULL  |
+| AGE     | int         | NO   |     | NULL    | NULL  |
+| ADDRESS | varchar(30) | YES  |     | NULL    | NULL  |
+| GENDER  | char(1)     | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+

@@ -1,0 +1,22 @@
+//create a table STUDENT have the fields(roll_no,name,age,address,gender)and add following constraints on it.
+//Roll_no-Primary key
+//Name-does not allow null values
+//Age-must be in between (0-99),does not allow null values
+//gender-default value is 'm'
+mysql> CREATE TABLE STUDENT(ROLL_NO INT NOT NULL,NAME VARCHAR(15) NOT NULL,AGE INT NOT NULL CHECK(AGE BETWEEN 0 AND 99),ADDRESS VARCHAR(30),GENDER CHAR(1) defau
+lt 'm');
+Query OK, 0 rows affected (0.02 sec)
+mysql> ALTER TABLE STUDENT MODIFY ROLL_NO INT PRIMARY KEY;
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int         | NO   | PRI | NULL    |       |
+| NAME    | varchar(15) | NO   |     | NULL    |       |
+| AGE     | int         | NO   |     | NULL    |       |
+| ADDRESS | varchar(30) | YES  |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+

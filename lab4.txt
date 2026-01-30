@@ -1,0 +1,19 @@
+//CREATE A DUPLICATE TABLE OF EMPLPOYEEmysql> CREATE TABLE EMPLO_DUP AS SELECT * FROM employee;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc EMPLO_DUP;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMP_ID    | int         | NO   |     | NULL    |       |
+| NAME      | varchar(30) | NO   |     | NULL    |       |
+| CITY      | varchar(20) | YES  |     | 0       |       |
+| DOB       | date        | NO   |     | NULL    |       |
+| AADHAR_NO | int         | YES  |     | 0       |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> 
+
+
