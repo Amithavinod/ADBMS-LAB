@@ -1,6 +1,9 @@
 //create a table EMPLOYEE have the following fields(emp_id,name,city,dob,adhar_no)
-CREATE TABLE EMPLOYEE(EMP_ID INT NOT NULL, NAME VARCHAR(30) NOT NULL, CITY VARCHAR(20) default'0', DOB DATE NOT NULL, AADHAR_NO INT default'0', PRIMARY KEY(EMP_ID));
+
+mysql> CREATE TABLE EMPLOYEE(EMP_ID INT NOT NULL, NAME VARCHAR(30) NOT NULL, CITY VARCHAR(20) default'0', DOB DATE NOT NULL, AADHAR_NO INT default'0', PRIMARY KEY(EMP_ID));
 Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESC EMPLOYEE;
 +-----------+-------------+------+-----+---------+-------+
 | Field     | Type        | Null | Key | Default | Extra |
 +-----------+-------------+------+-----+---------+-------+
@@ -11,5 +14,4 @@ Query OK, 0 rows affected (0.01 sec)
 | AADHAR_NO | int         | YES  |     | 0       |       |
 +-----------+-------------+------+-----+---------+-------+
 5 rows in set (0.01 sec)
-//RESUBMIT
-//add MYSQl> prompt correctly, and Query for desc??
+
