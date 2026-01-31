@@ -1,0 +1,145 @@
+//ADD A COLUMN "SSN" AT THE FIRST POSITION IN THE TABLE EMPLOYEE
+
+mysql> USE amitha;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> ALTER TABLE employee ADD SSN INT FIRST;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | int         | YES  |     | NULL    |       |
+| EMP_ID    | int         | NO   | PRI | NULL    |       |
+| NAME      | varchar(30) | NO   |     | NULL    |       |
+| CITY      | varchar(20) | YES  |     | 0       |       |
+| DOB       | date        | NO   |     | NULL    |       |
+| AADHAR_NO | int         | YES  |     | 0       |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+//CHANGE THE DATA TYPE OF THE COLUMN 'DOB' IN YEAR THE TABLE EMPLOYEE
+
+mysql> ALTER TABLE employee MODIFY DOB YEAR;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | int         | YES  |     | NULL    |       |
+| EMP_ID    | int         | NO   | PRI | NULL    |       |
+| NAME      | varchar(30) | NO   |     | NULL    |       |
+| CITY      | varchar(20) | YES  |     | 0       |       |
+| DOB       | year        | YES  |     | NULL    |       |
+| AADHAR_NO | int         | YES  |     | 0       |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
+
+mysql> 
+
+//DELETE THE COLUMN "EMP_ID" IN THE TABLE EMPLOYEE.
+
+mysql> ALTER TABLE employee DROP EMP_ID;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | int         | YES  |     | NULL    |       |
+| NAME      | varchar(30) | NO   |     | NULL    |       |
+| CITY      | varchar(20) | YES  |     | 0       |       |
+| DOB       | year        | YES  |     | NULL    |       |
+| AADHAR_NO | int         | YES  |     | 0       |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+//ADD THE CONSTRAINT UNIQUE FOR COLUMNS 'SSN,AADHAR_NO' IN THE TABLE EMPLOYEE.
+
+mysql> ALTER TABLE employee  add constraint un unique(SSN,AADHAR_NO);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | int         | YES  | UNI | NULL    |       |
+| NAME      | varchar(30) | NO   |     | NULL    |       |
+| CITY      | varchar(20) | YES  |     | 0       |       |
+| DOB       | int         | YES  |     | NULL    |       |
+| AADHAR_NO | int         | YES  | UNI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+
+//DELETE THE NULL CONSTRAINT OF 'AGE' IN THE STUDENT TABLE.
+
+mysql> ALTER TABLE STUDENT MODIFY AGE INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int         | NO   | PRI | NULL    |       |
+| NAME    | varchar(15) | NO   |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(30) | YES  |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> 
+
+
+//CHANGE THE TABLE NAME EMPLOYEE AS PERSON
+
+mysql> ALTER TABLE employee RENAME TO PERSON;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_amitha |
++------------------+
+| EMPLO_DUP        |
+| PERSON           |
+| STUDENT          |
+| student          |
++------------------+
+4 rows in set (0.00 sec)
+
+//DELETE THE TABLE EMPLO_DUP
+
+mysql> DROP TABLE EMPLO_DUP;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_amitha |
++------------------+
+| PERSON           |
+| STUDENT          |
+| student          |
++------------------+
+3 rows in set (0.00 sec)
+
+
+
+
