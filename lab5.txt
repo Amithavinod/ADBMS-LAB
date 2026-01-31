@@ -1,0 +1,73 @@
+//CREATE A INVOICE DATABASE AND HAVING FOLLOWING TABLES:
+//-CUSTOMER(CUST_ID,ADDERESS,CITY,PHN_NO)
+//-PRODUCT(P_ID,PNAME,PRICE(DEFAULT0))
+//-INVOICE_MASTER(INV_ID,CUST_ID,(FK),INV_DATE)
+//-INVOICE_ITEN(INV_ID(FK),P_ID(FK),INV_DATE)
+
+mysql> CREATE DATABASE INVOICE;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE INVOICE;
+Database changed
+
+mysql> CREATE TABLE CUSTOMER(CUST_ID INT NOT NULL PRIMARY KEY,ADDRESS VARCHAR(30) NOT NULL,CITY VARCHAR(10) NOT NULL,PH_NO INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC CUSTOMER;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| CUST_ID | int         | NO   | PRI | NULL    |       |
+| ADDRESS | varchar(30) | NO   |     | NULL    |       |
+| CITY    | varchar(10) | NO   |     | NULL    |       |
+| PH_NO   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+
+
+mysql> CREATE TABLE PRODUCT(P_ID INT PRIMARY KEY,PNAME VARCHAR(15),PRICE DECIMAL DEFAULT'0');
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> DESC PRODUCT;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| P_ID  | int           | NO   | PRI | NULL    |       |
+| PNAME | varchar(15)   | YES  |     | NULL    |       |
+| PRICE | decimal(10,0) | YES  |     | 0       |       |
++-------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+mysql> CREATE TABLE INVOICE_MASTER(INV_ID INT PRIMARY KEY,CUST_ID INT,FOREIGN KEY(CUST_ID)REFERENCES CUSTOMER(CUST_ID),INV_DATE DATE);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC INVOICE_MASTER;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| INV_ID   | int  | NO   | PRI | NULL    |       |
+| CUST_ID  | int  | YES  | MUL | NULL    |       |
+| INV_DATE | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+mysql> CREATE TABLE INVOICE_ITEM(INV_ID INT,FOREIGN KEY(INV_ID)REFER
+ENCES INVOICE_MASTER(INV_ID),P_ID INT,FOREIGN KEY(P_ID)REFERENCES PRODUCT(P_ID),QUALITY DECIMAL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC INVOICE_ITEM;
++---------+---------------+------+-----+---------+-------+
+| Field   | Type          | Null | Key | Default | Extra |
++---------+---------------+------+-----+---------+-------+
+| INV_ID  | int           | YES  | MUL | NULL    |       |
+| P_ID    | int           | YES  | MUL | NULL    |       |
+| QUALITY | decimal(10,0) | YES  |     | NULL    |       |
++---------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
