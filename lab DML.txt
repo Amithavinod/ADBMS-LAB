@@ -43,11 +43,7 @@ mysql> select *from STUDENT;
 mysql> use INVOICE;
 Database changed
 
-mysql> insert into CUSTOMER values(1,"KOLAKKAD","MALAPPURAM",NULL),(2,"KOLAKKATTIL","TVM",NULL);
-Query OK, 2 rows affected (0.01 sec)
-Records: 2  Duplicates: 0  Warnings: 0
-
-insert into CUSTOMER values(1,"AMITHA","KOLAKKAD","MALAPPURAM",NULL),(2,"DHRISHYA","KOLAKKATTIL","TVM",NULL),(3,"LAKSHMI","AALATTUR","PALAKKAD",9774574722),(4,"MANISHA","KOLAKKATTIL","TVM",9207231471),(5,"SHAIKHA","NARIPOYIL","MALAPPURAM",9456574722),(6,"NEFLA","KOLAKKATTIL","WAYANAD",9207418571),(7,"ANU","KARULAYI","MALAPPURAM",9123654722);
+mysql>insert into CUSTOMER values(1,"AMITHA","KOLAKKAD","MALAPPURAM",NULL),(2,"DHRISHYA","KOLAKKATTIL","TVM",NULL),(3,"LAKSHMI","AALATTUR","PALAKKAD",9774574722),(4,"MANISHA","KOLAKKATTIL","TVM",9207231471),(5,"SHAIKHA","NARIPOYIL","MALAPPURAM",9456574722),(6,"NEFLA","KOLAKKATTIL","WAYANAD",9207418571),(7,"ANU","KARULAYI","MALAPPURAM",9123654722);
 
 mysql> select * from CUSTOMER;
 +---------+----------+-------------+------------+------------+
@@ -65,7 +61,7 @@ mysql> select * from CUSTOMER;
 
 
 
-mysql> insert into PRODUCT values(101,"CAKE",300),(102,"CUP",20),(103,"BOOKS",722),(104,"PHONE",31471);,(105,"MILK",22),(106,"OATS",571),(107,"PEN",12);
+mysql> insert into PRODUCT values(101,"CAKE",300),(102,"CUP",20),(103,"BOOKS",722),(104,"PHONE",31471),(105,"MILK",22),(106,"OATS",571),(107,"PEN",12);
 Query OK, 
 
 
@@ -279,7 +275,7 @@ c) DML - DELETE
 
 //1. Delete the record of customer id ‘3’.
 
-mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID=3);
+mysql>DELETE FROM INVOICE_ITEM WHERE INV_ID = 204 OR INV_ID = 206;
 Query OK, 2 rows affected (0.00 sec)
 
 mysql> DELETE FROM INVOICE_MASTER WHERE CUST_ID =3;
@@ -303,20 +299,19 @@ Empty set (0.00 sec)
 // 3. Delete the purchase details of product ‘pen’ in the in_id ‘212’. 
 
 
-mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=212 AND P_ID=(SELECT P_ID  FROM PRODUCT WHERE  PNAME="PEN");
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=212 AND P_ID=107;
 Query OK, 1 row affected (0.01 sec)
 
-mysql> SELECT * FROM INVOICE_ITEM WHERE INV_ID=212 AND P_ID=(SELECT P_ID FROM PRODUCT WHERE PNAME="PEN");
+mysql> SELECT * FROM INVOICE_ITEM WHERE INV_ID=212 AND P_ID=107;
 Empty set (0.00 sec)
 
 // 4. Delete details of customer who does not have phone number. 
 
-mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID IN (SELECT CUST_ID FROM CUSTOMER WHERE PH_NO IS NULL ));
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=200 or INV_ID=201 OR INV_ID=202 OR INV_ID=203 OR INV_ID=212;
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> DELETE  FROM INVOICE_MASTER WHERE CUST_ID IN (SELECT CUST_ID FROM CUSTOME
-R WHERE PH_NO IS NULL );
-Query OK, 3 rows affected (0.00 sec)
+mysql> DELETE  FROM INVOICE_MASTER WHERE CUST_ID=1 and CUST_ID=2;
+Query OK, 2 rows affected (0.00 sec)
 
 mysql> DELETE FROM CUSTOMER WHERE PH_NO IS NULL ;
 Query OK, 1 row affected (0.01 sec)
@@ -343,11 +338,10 @@ Empty set (0.01 sec)
 
 // 6. Delete Invoice details of a particular customer "MANISHA".
 
-mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID IN(SELECT CUST_ID FROM CUSTOMER WHERE NAME="MANISHA"));
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=205;
 Query OK, 1 row affected (0.01 sec)
 
-mysql> DELETE FROM INVOICE_MASTER WHERE CUST_ID IN(SELECT CUST_ID FROM CUSTOMER
-WHERE NAME="MANISHA");
+mysql> DELETE FROM INVOICE_MASTER WHERE CUST_ID=4;
 Query OK, 1 row affected (0.00 sec)
 
 mysql> DELETE FROM CUSTOMER WHERE NAME="MANISHA";
@@ -366,22 +360,17 @@ mysql> SELECT * FROM CUSTOMER;
 
 // 7. Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
 
-mysql> DELETE FROM INVOICE_ITEM WHERE QUALITY = (SELECT * FROM (SELECT QUALITY FROM INVOICE_ITEM )ORDER BY QUALITY DESC
-        LIMIT 2 AS temp );
-Query OK, 2 rows affected (0.00 sec)
+mysql> DELETE FROM INVOICE_ITEM LIMIT 2;
+Query OK, 2 rows affected (0.01 sec)
 
-mysql> SELECT * FROM INVOICE_ITEM;
+mysql> select * from INVOICE_ITEM;
 +--------+------+---------+
 | INV_ID | P_ID | QUALITY |
 +--------+------+---------+
-|    209 |  102 |       4 |
-|    210 |  107 |       2 |
-|    211 |  106 |       2 |
 |    201 |  107 |       2 |
 |    201 |  106 |       5 |
 |    201 |  103 |       2 |
 +--------+------+---------+
-6 rows in set (0.00 sec)
+3 rows in set (0.00 sec)
 
-//RESUBMIT
 
