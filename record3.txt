@@ -1,0 +1,147 @@
+A)TCL COMMANDS
+1.COMMIT
+2.ROLLBACK
+3.SAVE POINT
+
+Database changed
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+mysql> insert into students values(202,"bb",25),(203,"aa",22);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into students values(205,"bb",33),(204,"aa",33);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from students;
++---------+------+------+
+| roll_no | name | age  |
++---------+------+------+
+|     202 | bb   |   25 |
+|     203 | aa   |   22 |
++---------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into students values(207,"bb",33);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(208,"bb",33);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update students set name="aa" where roll_no=208;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SAVEPOINT sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into students values(209,"bb",33);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT sp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from students where roll_no=207;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback to sp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from students;
++---------+------+------+
+| roll_no | name | age  |
++---------+------+------+
+|     202 | bb   |   25 |
+|     203 | aa   |   22 |
+|     207 | bb   |   33 |
+|     208 | bb   |   33 |
++---------+------+------+
+4 rows in set (0.00 sec)
+
+
+b)DCL COMMAND
+create two users user1,user2
+1.GRANT : GIVE INSERT AND SELECT PRIVILEGE TO USER 1 ON CUSTOMER TABLE IN THE INVOICE DATABASE.
+GIVE UPDATE AND DELETE PRIVILEGE TO USER 2 ON ALL TABLES IN THE INVOICE DATABASES
+
+mysql> create user 'amitha@localhost' identified by 'pass122';
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> grant select on INVOICE.CUSTOMER to 'amitha@localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant insert on INVOICE.CUSTOMER to 'amitha@localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> show grants for 'amitha@localhost';
++------------------------------------------------------------------------+
+| Grants for amitha@localhost@%                                          |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `amitha@localhost`@`%`                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`CUSTOMER` TO `amitha@localhost`@`%` |
+| GRANT SELECT ON `amitha`.`students` TO `amitha@localhost`@`%`          |
++------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+
+mysql> create user'aami@localhost' identified by 'pass122';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant update on INVOICE.* to 'aami@localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant delete on INVOICE.* to 'aami@localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'aami@localhost';
++-------------------------------------------------------------+
+| Grants for aami@localhost@%                                 |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `aami@localhost`@`%`                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `aami@localhost`@`%` |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+2.REVOKE: REMOVE DELETE  PRIVILEGE OF USER 2
+
+mysql> REVOKE DELETE ON INVOICE.* FROM 'aami@localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'aami@localhost';
++-----------------------------------------------------+
+| Grants for aami@localhost@%                         |
++-----------------------------------------------------+
+| GRANT USAGE ON *.* TO `aami@localhost`@`%`          |
+| GRANT UPDATE ON `INVOICE`.* TO `aami@localhost`@`%` |
++-----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
