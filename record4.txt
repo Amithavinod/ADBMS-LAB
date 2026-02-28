@@ -1,0 +1,51 @@
+1.LIST ALL INVOICE ITEMS, AVOID DUPLICATES.
+
+mysql> select distinct * from INVOICE_ITEM ;
++--------+------+---------+
+| INV_ID | P_ID | QUALITY |
++--------+------+---------+
+|    210 |  104 |       4 |
+|    210 |  104 |       5 |
++--------+------+---------+
+2 rows in set (0.00 sec)
+
+2.LIST THE CUSTOMER DETAILS WHO NOT LIVE IN 'TVM'
+
+mysql> select * from CUSTOMER where city <> "TVM";
++---------+---------+-------------+------------+------------+
+| CUST_ID | NAME    | ADDRESS     | CITY       | PH_NO      |
++---------+---------+-------------+------------+------------+
+|       5 | SHAIKHA | NARIPOYIL   | MALAPPURAM | 9456574722 |
+|       6 | NEFLA   | KOLAKKATTIL | WAYANAD    | 9207418571 |
+|       7 | ANU     | KARULAYI    | MALAPPURAM | 9123654722 |
++---------+---------+-------------+------------+------------+
+3 rows in set (0.00 sec)
+
+3.DISPLAY THE CUSTOMER DETAILS SORTED IN ASCENDING BY CITY AND DESCENDING BY NAMES
+
+mysql> select * from  CUSTOMER order by CITY asc,NAME desc;
++---------+---------+-------------+------------+------------+
+| CUST_ID | NAME    | ADDRESS     | CITY       | PH_NO      |
++---------+---------+-------------+------------+------------+
+|       5 | SHAIKHA | NARIPOYIL   | MALAPPURAM | 9456574722 |
+|       7 | ANU     | KARULAYI    | MALAPPURAM | 9123654722 |
+|       1 | AMITHA  | NILAMBUR    | TVM        | 9207231471 |
+|       6 | NEFLA   | KOLAKKATTIL | WAYANAD    | 9207418571 |
++---------+---------+-------------+------------+------------+
+4 rows in set (0.00 sec)
+
+4.FIND THE CUSTOMER NAMES WHO HAVE 'E' OR 'A' IN THEM AND AT LEAST 3 CHARACTERS IN LENGTH
+
+mysql> SELECT name FROM CUSTOMER WHERE name LIKE '___%' AND (name LIKE '%E%' OR
+name LIKE '%A%');
++---------+
+| name    |
++---------+
+| AMITHA  |
+| SHAIKHA |
+| NEFLA   |
+| ANU     |
++---------+
+4 rows in set (0.00 sec)
+
+
