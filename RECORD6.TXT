@@ -1,0 +1,44 @@
+1.list the product names ,only include those purchased quality more than 3
+
+mysql> SELECT PNAME FROM PRODUCT WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEM WHERE QUALITY>3) ;
++-------+
+| PNAME |
++-------+
+| PHONE |
++-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+2.find the product that has no sale
+
+mysql> SELECT PNAME FROM PRODUCT WHERE P_ID NOT IN(SELECT P_ID FROM INVOICE_ITEM ) ;
++-------+
+| PNAME |
++-------+
+| CAKE  |
+| CUP   |
+| BOOKS |
+| MILK  |
+| OATS  |
+| PEN   |
++-------+
+6 rows in set (0.00 sec)
+
+
+3.list the names of all customer who have purchased at least 2 products , making sure that no duplicate 
+
+mysql>  SELECT DISTINCT NAME FROM CUSTOMER WHERE CUST_ID IN(SELECT CUST_ID FROM
+INVOICE_MASTER WHERE INV_ID IN( SELECT INV_ID FROM INVOICE_ITEM GROUP BY INV_ID
+HAVING COUNT(INV_ID) >=2  ) );
++------+
+| NAME |
++------+
+| ANU  |
++------+
+1 row in set (0.00 sec)
+
+
+
+
