@@ -1,0 +1,59 @@
+1. List the product name and quantity of invoice items. 
+
+mysql> SELECT PNAME,QUALITY FROM PRODUCT NATURAL JOIN INVOICE_ITEM;
++-------+---------+
+| PNAME | QUALITY |
++-------+---------+
+| PHONE |       4 |
+| PHONE |       5 |
+| PHONE |       4 |
++-------+---------+
+3 rows in set (0.00 sec)
+
+
+2.. Display the customer name, product name, invoice date of purchased item ‘pen’. 
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE FROM CUSTOMER
+JOIN INVOICE_MASTER ON CUSTOMER.CUST_ID= INVOICE_MASTER.CUST_ID JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID JOIN PRODUCT ON INVOICE_ITEM.P_ID WHERE PRODUCT.PNAME="PHONE";
++------+-------+------------+
+| NAME | PNAME | INV_DATE   |
++------+-------+------------+
+| ANU  | PHONE | 2025-05-02 |
+| ANU  | PHONE | 2025-05-02 |
+| ANU  | PHONE | 2025-05-02 |
++------+-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE FROM CUSTOMER
+NATURAL JOIN INVOICE_MASTER NATURAL JOIN INVOICE_ITEM NATURAL JOIN PRODUCT WHERE PNAME="PHONE";
++------+-------+------------+
+| NAME | PNAME | INV_DATE   |
++------+-------+------------+
+| ANU  | PHONE | 2025-05-02 |
+| ANU  | PHONE | 2025-05-02 |
+| ANU  | PHONE | 2025-05-02 |
++------+-------+------------+
+3 rows in set (0.00 sec)
+
+
+
+3. Display all customer details and invoice details must include customer has not
+purchased items.
+
+mysql> SELECT CUSTOMER.CUST_ID,CUSTOMER.NAME,INVOICE_MASTER.INV_ID FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.CUST_ID =INVOICE_MASTER.CUST_ID;
++---------+---------+--------+
+| CUST_ID | NAME    | INV_ID |
++---------+---------+--------+
+|       1 | AMITHA  |    200 |
+|       1 | AMITHA  |    201 |
+|       1 | AMITHA  |    212 |
+|       2 | amitha  |   NULL |
+|       5 | SHAIKHA |    208 |
+|       6 | NEFLA   |    209 |
+|       6 | NEFLA   |    211 |
+|       7 | ANU     |    210 |
++---------+---------+--------+
+8 rows in set (0.00 sec)
+
+
+
+
