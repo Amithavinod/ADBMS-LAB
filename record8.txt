@@ -1,0 +1,35 @@
+1.Create a view for customers who have purchased products.
+
+mysql> create view view_DATAS as select CUSTOMER.CUST_ID,CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE from CUSTOMER join INVOICE_MASTER on CUSTOMER.CUST_ID=INVOICE_MASTER.CUST_ID join INVOICE_ITEM on INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID join PRODUCT on INVOICE_ITEM.P_ID=PRODUCT.P_ID;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from view_DATAS;
++---------+------+-------+------------+
+| CUST_ID | NAME | PNAME | INV_DATE   |
++---------+------+-------+------------+
+|       7 | ANU  | PHONE | 2025-05-02 |
+|       7 | ANU  | PHONE | 2025-05-02 |
+|       7 | ANU  | PHONE | 2025-05-02 |
++---------+------+-------+------------+
+3 rows in set (0.00 sec)
+
+
+2. Create a view for invoice products[cname, inv_id, product_id, quantity]
+
+
+mysql> CREATE VIEW invoice_products AS SELECT CUSTOMER.NAME,INVOICE_MASTER.INV_ID,PRODUCT.P_ID,INVOICE_ITEM.QUALITY FROM CUSTOMER JOIN INVOICE_MASTER  ON CUSTOMER.CUST_ID = INVOICE_MASTER.CUST_ID JOIN INVOICE_ITEM  ON INVOICE_MASTER.INV_ID = INVOICE_ITEM.INV_ID JOIN PRODUCT  ON PRODUCT.P_ID = INVOICE_ITEM.P_ID;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM invoice_products
+    -> ;
++------+--------+------+---------+
+| NAME | INV_ID | P_ID | QUALITY |
++------+--------+------+---------+
+| ANU  |    210 |  104 |       4 |
+| ANU  |    210 |  104 |       5 |
+| ANU  |    210 |  104 |       4 |
++------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+
+
