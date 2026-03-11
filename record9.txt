@@ -9,7 +9,7 @@ mysql> SELECT * FROM CUSTOMER WHERE PH_NO IS NULL AND CITY LIKE "MALAPPURAM";
 1 row in set (0.00 sec)
 
 
-2. List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
+2. List the product names if it finds any records in the invoice items table has quantity =4 (use special operators)
 
 
 mysql> SELECT PNAME FROM PRODUCT where P_ID IN (SELECT P_ID FROM INVOICE_ITEM WHERE QUALITY=4);
