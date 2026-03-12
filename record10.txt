@@ -17,22 +17,17 @@ Query OK, 0 rows affected (0.00 sec)
 
 2. Create a procedure to display invoice details of a particular customer.
 
-mysql> CREATE PROCEDURE PRODUCT_DETAIL(IN CUST_ID INT ) BEGIN SELECT CUSTOMER.NAME,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.INV_ID FROM CUSTOMER JOIN INVOICE_MASTER ON CUSTOMER.CUST_ID=INVOICE_MASTER.CUST_ID JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID = INVOICE_ITEM.INV_ID WHERE CUST_ID=CUSTOMER.CUST_ID; END //
-Query OK, 0 rows affected (0.00 sec)
+mysql> CREATE PROCEDURE PROD(IN CUST_ID INT ) BEGIN SELECT CUSTOMER.CUST_ID,CUSTOMER.NAME,PRODUCT.P_ID,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.INV_ID,INVOICE_ITEM.QUALITY FROM CUSTOMER JOIN INVOICE_MASTER ON CUSTOMER.CUST_ID=INVOICE_MASTER.CUST_ID JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID = INVOICE_ITEM.INV_ID JOIN PRODUCT ON INVOICE_ITEM.P_ID=PRODUCT.P_ID WHERE CUST_ID=CUSTOMER.CUST_ID; END //
+Query OK, 0 rows affected (0.01 sec)
 
-mysql> CALL PRODUCT_DETAIL(5)//
-Empty set (0.00 sec)
-
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> CALL PRODUCT_DETAIL(7)//
-+------+------------+--------+
-| NAME | INV_DATE   | INV_ID |
-+------+------------+--------+
-| ANU  | 2025-05-02 |    210 |
-| ANU  | 2025-05-02 |    210 |
-| ANU  | 2025-05-02 |    210 |
-+------+------------+--------+
+mysql> CALL PROD(7)//
++---------+------+------+------------+--------+---------+
+| CUST_ID | NAME | P_ID | INV_DATE   | INV_ID | QUALITY |
++---------+------+------+------------+--------+---------+
+|       7 | ANU  |  104 | 2025-05-02 |    210 |       4 |
+|       7 | ANU  |  104 | 2025-05-02 |    210 |       5 |
+|       7 | ANU  |  104 | 2025-05-02 |    210 |       4 |
++---------+------+------+------------+--------+---------+
 3 rows in set (0.00 sec)
 
 Query OK, 0 rows affected (0.00 sec)
