@@ -1,0 +1,82 @@
+1. Write a MongoDB query to sort customer details in ascending order of their name. 
+
+INVOICE> db.CUSTOMER.find().sort({NAME:1})
+[
+  {
+    _id: ObjectId('69b8edb655ccab23478de667'),
+    CUST_ID: 2,
+    NAME: 'DHRISHYA',
+    ADDRESS: 'KOLAKKATTIL',
+    CITY: 'PALAKKAD',
+    PHN_NO: 9946186174
+  },
+  {
+    _id: ObjectId('69b8edb655ccab23478de668'),
+    CUST_ID: 3,
+    NAME: 'LAKSHMI',
+    ADDRESS: 'AALATTUR',
+    CITY: 'PALAKKAD',
+    PHN_NO: 9774574722
+  }
+]
+
+2. Write a MongoDB query to count number of customers in each city. 
+
+INVOICE> db.CUSTOMER.aggregate([{$group: {_id:"$CITY",TOTAL_CUSTOMERS:{$sum:1}}}])
+[ { _id: 'PALAKKAD', TOTAL_CUSTOMERS: 2 } ]
+
+3. Write a MongoDB query to find minimum and maximum age in each city. 
+INVOICE> db.CUSTOMER.aggregate([{$group: {_id:"$CITY",MIN_AGE:{$min:"$AGE"},MAX_AGE:{$max:"$AGE"}}}])
+[ { _id: 'PALAKKAD', MIN_AGE: 28, MAX_AGE: 58 } ]
+
+
+4. Write a MongoDB query using the $match stage to retrieve all customer documents whose customer_name starts with the letter “S”.
+
+INVOICE> db.CUSTOMER.aggregate([{$match:{NAME:{$regex:/^s/i}}}])
+[
+  {
+    _id: ObjectId('69bbb40507206f1abf8de666'),
+    CUST_ID: 1,
+    NAME: 'SINU',
+    ADDRESS: 'KOLAKKAD',
+    CITY: 'MALAPPURAM',
+    PHN_NO: 9946186174
+  }
+]
+
+
+5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only customer name, product name, and price.
+db.CUSTOMER.aggregate([
+  {
+    $lookup: {
+      from: "PRODUCT",
+      localField: "product_id",     
+      foreignField: "product_id", 
+      as: "PRODUCT_INFO"
+    }
+  },
+  {
+    $unwind: "$PRODUCT_INFO"
+  },
+  {
+    $project: {
+      _id: 0,
+      customer_name: "$NAME",
+      product_name: "$PRODUCT_INFO.PNAME",
+      price: "$PRODUCT_INFO.PRICE"
+    }
+  }
+])
+[
+  { customer_name: 'DHRISHYA', product_name: 'CAKE', price: 300 },
+  { customer_name: 'DHRISHYA', product_name: 'CUP', price: 20 },
+  { customer_name: 'DHRISHYA', product_name: 'BOOKS', price: 722 },
+  { customer_name: 'LAKSHMI', product_name: 'CAKE', price: 300 },
+  { customer_name: 'LAKSHMI', product_name: 'CUP', price: 20 },
+  { customer_name: 'LAKSHMI', product_name: 'BOOKS', price: 722 },
+  { customer_name: 'SINU', product_name: 'CAKE', price: 300 },
+  { customer_name: 'SINU', product_name: 'CUP', price: 20 },
+  { customer_name: 'SINU', product_name: 'BOOKS', price: 722 }
+]
+
+
